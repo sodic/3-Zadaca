@@ -67,7 +67,7 @@ namespace Zadatak_1
 
         public List<ToDoItem> GetAll(Guid userId)
         {
-            return GetFiltered(x => true,userId);
+            return GetFiltered(x => true, userId);
         }
 
         public List<ToDoItem> GetActive(Guid userId)
@@ -77,12 +77,12 @@ namespace Zadatak_1
 
         public List<ToDoItem> GetCompleted(Guid userId)
         {
-            return GetFiltered(x=>x.IsCompleted,userId);
+            return GetFiltered(x => x.IsCompleted, userId);
         }
 
         public List<ToDoItem> GetFiltered(Func<ToDoItem, bool> filterFunction, Guid userId)
         {
-            var returnList=_context.Items.Where(filterFunction).Where(x=> x.UserId.Equals(userId)).OrderByDescending(x => x.DateCreated).ToList();
+            var returnList = _context.Items.Where(filterFunction).Where(x => x.UserId.Equals(userId)).OrderByDescending(x => x.DateCreated).ToList();
             return returnList.Count == 0 ? null : returnList;
         }
 

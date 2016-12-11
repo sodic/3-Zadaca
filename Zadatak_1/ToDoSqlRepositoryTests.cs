@@ -11,9 +11,9 @@ namespace Zadatak_1.Tests
     public class ToDoSqlRepositoryTests
     {
 
-        private const string ConnectionString= "Server=(localdb)\\mssqllocaldb;Database=ToDoDb;Trusted_Connection=True;MultipleActiveResultSets=true";
+        private const string ConnectionString = "Server=(localdb)\\mssqllocaldb;Database=ToDoDb;Trusted_Connection=True;MultipleActiveResultSets=true";
 
-        ToDoDbContext _db= new ToDoDbContext(ConnectionString);
+        ToDoDbContext _db = new ToDoDbContext(ConnectionString);
         //Begin tests for Add
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -54,9 +54,9 @@ namespace Zadatak_1.Tests
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var id1 = Guid.NewGuid();
             var id2 = Guid.NewGuid();
-            ToDoItem item = new ToDoItem("test",id1);
+            ToDoItem item = new ToDoItem("test", id1);
             repository.Add(item);
-            Assert.AreEqual(item, repository.Get(item.Id,id1));
+            Assert.AreEqual(item, repository.Get(item.Id, id1));
         }
 
         [TestMethod]
@@ -76,10 +76,10 @@ namespace Zadatak_1.Tests
         {
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId = Guid.NewGuid();
-            ToDoItem item1 = new ToDoItem("test1",userId);
-            ToDoItem item2 = new ToDoItem("test2",userId);
+            ToDoItem item1 = new ToDoItem("test1", userId);
+            ToDoItem item2 = new ToDoItem("test2", userId);
             repository.Add(item1);
-            Assert.AreEqual(null, repository.Get(item2.Id,userId));
+            Assert.AreEqual(null, repository.Get(item2.Id, userId));
         }
 
         [TestMethod]
@@ -87,8 +87,8 @@ namespace Zadatak_1.Tests
         {
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId = Guid.NewGuid();
-            ToDoItem item = new ToDoItem("test",userId);
-            Assert.AreEqual(null, repository.Get(item.Id,userId));
+            ToDoItem item = new ToDoItem("test", userId);
+            Assert.AreEqual(null, repository.Get(item.Id, userId));
         }
 
         //End tests for Get
@@ -99,11 +99,11 @@ namespace Zadatak_1.Tests
         {
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId = Guid.NewGuid();
-            ToDoItem item1 = new ToDoItem("test1",userId);
-            ToDoItem item2 = new ToDoItem("test2",userId);
+            ToDoItem item1 = new ToDoItem("test1", userId);
+            ToDoItem item2 = new ToDoItem("test2", userId);
             repository.Add(item1);
             repository.Add(item2);
-            Assert.IsTrue(repository.Remove(item1.Id,userId));
+            Assert.IsTrue(repository.Remove(item1.Id, userId));
             Assert.AreEqual(1, repository.GetAll(userId).Count);
             repository.Add(item1);
         }
@@ -113,10 +113,10 @@ namespace Zadatak_1.Tests
         {
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId = Guid.NewGuid();
-            ToDoItem item1 = new ToDoItem("test1",userId);
-            ToDoItem item2 = new ToDoItem("test2",userId);
+            ToDoItem item1 = new ToDoItem("test1", userId);
+            ToDoItem item2 = new ToDoItem("test2", userId);
             repository.Add(item1);
-            Assert.IsFalse(repository.Remove(item2.Id,userId));
+            Assert.IsFalse(repository.Remove(item2.Id, userId));
             Assert.AreEqual(1, repository.GetAll(userId).Count);
         }
 
@@ -140,10 +140,10 @@ namespace Zadatak_1.Tests
         {
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId = Guid.NewGuid();
-            ToDoItem item = new ToDoItem("test",userId);
-            repository.Update(item,userId);
+            ToDoItem item = new ToDoItem("test", userId);
+            repository.Update(item, userId);
             Assert.AreEqual(repository.GetAll(userId).Count, 1);
-            Assert.IsTrue(repository.Get(item.Id,userId) == item);
+            Assert.IsTrue(repository.Get(item.Id, userId) == item);
         }
 
         [TestMethod]
@@ -151,12 +151,12 @@ namespace Zadatak_1.Tests
         {
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId = Guid.NewGuid();
-            ToDoItem item = new ToDoItem("test",userId);
+            ToDoItem item = new ToDoItem("test", userId);
             repository.Add(item);
             item.Text = "changed";
-            repository.Update(item,userId);
+            repository.Update(item, userId);
             Assert.AreEqual(repository.GetAll(userId).Count, 1);
-            Assert.IsTrue(String.Compare(repository.Get(item.Id,userId).Text, "changed") == 0);
+            Assert.IsTrue(String.Compare(repository.Get(item.Id, userId).Text, "changed") == 0);
         }
 
         [TestMethod]
@@ -179,11 +179,11 @@ namespace Zadatak_1.Tests
         {
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId = Guid.NewGuid();
-            ToDoItem item = new ToDoItem("test",userId);
+            ToDoItem item = new ToDoItem("test", userId);
             repository.Add(item);
-            Assert.IsTrue(repository.MarkAsCompleted(item.Id,userId));
+            Assert.IsTrue(repository.MarkAsCompleted(item.Id, userId));
             Assert.AreEqual(repository.GetAll(userId).Count, 1);
-            Assert.IsTrue(repository.Get(item.Id,userId).IsCompleted);
+            Assert.IsTrue(repository.Get(item.Id, userId).IsCompleted);
         }
 
         [TestMethod]
@@ -191,12 +191,12 @@ namespace Zadatak_1.Tests
         {
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId = Guid.NewGuid();
-            ToDoItem item1 = new ToDoItem("test1",userId);
-            ToDoItem item2 = new ToDoItem("test2",userId);
+            ToDoItem item1 = new ToDoItem("test1", userId);
+            ToDoItem item2 = new ToDoItem("test2", userId);
             repository.Add(item1);
-            Assert.IsFalse(repository.MarkAsCompleted(item2.Id,userId));
+            Assert.IsFalse(repository.MarkAsCompleted(item2.Id, userId));
             Assert.AreEqual(repository.GetAll(userId).Count, 1);
-            Assert.IsFalse(repository.Get(item1.Id,userId).IsCompleted);
+            Assert.IsFalse(repository.Get(item1.Id, userId).IsCompleted);
         }
 
         [TestMethod]
@@ -218,8 +218,8 @@ namespace Zadatak_1.Tests
         {
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId = Guid.NewGuid();
-            ToDoItem item1 = new ToDoItem("test1",userId);
-            ToDoItem item2 = new ToDoItem("test2",userId);
+            ToDoItem item1 = new ToDoItem("test1", userId);
+            ToDoItem item2 = new ToDoItem("test2", userId);
             item1.MarkAsDone();
             repository.Add(item2);
             repository.Add(item1);
@@ -235,8 +235,8 @@ namespace Zadatak_1.Tests
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId = Guid.NewGuid();
             var userId2 = Guid.NewGuid();
-            ToDoItem item1 = new ToDoItem("test1",userId);
-            ToDoItem item2 = new ToDoItem("test2",userId2);
+            ToDoItem item1 = new ToDoItem("test1", userId);
+            ToDoItem item2 = new ToDoItem("test2", userId2);
             item1.MarkAsDone();
             repository.Add(item2);
             repository.Add(item1);
@@ -260,9 +260,9 @@ namespace Zadatak_1.Tests
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId = Guid.NewGuid();
             var userId2 = Guid.NewGuid();
-            ToDoItem item1 = new ToDoItem("test1",userId);
-            ToDoItem item2 = new ToDoItem("test2",userId);
-            ToDoItem item3=new ToDoItem("item3",userId2);
+            ToDoItem item1 = new ToDoItem("test1", userId);
+            ToDoItem item2 = new ToDoItem("test2", userId);
+            ToDoItem item3 = new ToDoItem("item3", userId2);
             item2.DateCreated = DateTime.UtcNow;
             repository.Add(item2);
             repository.Add(item1);
@@ -289,8 +289,8 @@ namespace Zadatak_1.Tests
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId1 = Guid.NewGuid();
             var userId2 = Guid.NewGuid();
-            ToDoItem item1 = new ToDoItem("test1",userId1);
-            ToDoItem item2 = new ToDoItem("test2",userId1);
+            ToDoItem item1 = new ToDoItem("test1", userId1);
+            ToDoItem item2 = new ToDoItem("test2", userId1);
             ToDoItem item3 = new ToDoItem("item3", userId2);
             item1.MarkAsDone();
             repository.Add(item2);
@@ -306,8 +306,8 @@ namespace Zadatak_1.Tests
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId1 = Guid.NewGuid();
             var userId2 = Guid.NewGuid();
-            ToDoItem item1 = new ToDoItem("test1",userId1);
-            ToDoItem item2 = new ToDoItem("test2",userId2);
+            ToDoItem item1 = new ToDoItem("test1", userId1);
+            ToDoItem item2 = new ToDoItem("test2", userId2);
             item2.MarkAsDone();
             repository.Add(item2);
             repository.Add(item1);
@@ -330,16 +330,16 @@ namespace Zadatak_1.Tests
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId1 = Guid.NewGuid();
             var userId2 = Guid.NewGuid();
-            ToDoItem item1 = new ToDoItem("test1",userId1);
-            ToDoItem item2 = new ToDoItem("test2",userId1);
-            ToDoItem item3 = new ToDoItem("test2",userId1);
-            ToDoItem item4=new ToDoItem("test4",userId2);
-            item3.DateCreated=DateTime.UtcNow;
+            ToDoItem item1 = new ToDoItem("test1", userId1);
+            ToDoItem item2 = new ToDoItem("test2", userId1);
+            ToDoItem item3 = new ToDoItem("test2", userId1);
+            ToDoItem item4 = new ToDoItem("test4", userId2);
+            item3.DateCreated = DateTime.UtcNow;
             repository.Add(item2);
             repository.Add(item1);
             repository.Add(item3);
             repository.Add(item4);
-            var testList = repository.GetFiltered(x => String.Compare(x.Text, "test2") == 0,userId1);
+            var testList = repository.GetFiltered(x => String.Compare(x.Text, "test2") == 0, userId1);
             Assert.IsTrue(testList.Count == 2 && testList.IndexOf(item2) == 0 && testList.IndexOf(item3) == 1);
         }
 
@@ -349,15 +349,15 @@ namespace Zadatak_1.Tests
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId1 = Guid.NewGuid();
             var userId2 = Guid.NewGuid();
-            ToDoItem item1 = new ToDoItem("test1",userId1);
-            ToDoItem item2 = new ToDoItem("test2",userId1);
-            ToDoItem item3 = new ToDoItem("test3",userId1);
+            ToDoItem item1 = new ToDoItem("test1", userId1);
+            ToDoItem item2 = new ToDoItem("test2", userId1);
+            ToDoItem item3 = new ToDoItem("test3", userId1);
             ToDoItem item4 = new ToDoItem("test4", userId2);
             repository.Add(item2);
             repository.Add(item1);
             repository.Add(item3);
             repository.Add(item4);
-            Assert.AreEqual(repository.GetFiltered(x => String.Compare(x.Text, "test4") == 0,userId1), null);
+            Assert.AreEqual(repository.GetFiltered(x => String.Compare(x.Text, "test4") == 0, userId1), null);
         }
 
         [TestMethod]
@@ -365,8 +365,8 @@ namespace Zadatak_1.Tests
         {
             IToDoRepository repository = new ToDoSqlRepository(_db);
             var userId = Guid.NewGuid();
-            ToDoItem item3 = new ToDoItem("test3",userId);
-            Assert.AreEqual(repository.GetFiltered(x => String.Compare(x.Text, "test4") == 0,userId), null);
+            ToDoItem item3 = new ToDoItem("test3", userId);
+            Assert.AreEqual(repository.GetFiltered(x => String.Compare(x.Text, "test4") == 0, userId), null);
         }
         //end tests for GetFiltered
     }
