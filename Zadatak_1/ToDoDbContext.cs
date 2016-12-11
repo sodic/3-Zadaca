@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Zadatak_1
 {
-    class ToDoDbContext : System.Data.Entity.DbContext
+    public class ToDoDbContext : System.Data.Entity.DbContext
     {
         public IDbSet<ToDoItem> Items { get; set; }
 

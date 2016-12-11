@@ -32,5 +32,10 @@ namespace Zadatak_1
             DateCompleted = DateTime.Now;
             return true;
         }
+
+        public override string ToString()
+        {
+            return $"Item: {Text}, Created on {DateCreated}";
+        }
     }
 }
