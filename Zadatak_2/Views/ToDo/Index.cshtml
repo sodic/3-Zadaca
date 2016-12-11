@@ -1,0 +1,39 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>The index page</title>
+</head>
+<body>
+<h1>Active ToDo</h1>
+<div>
+    <a asp-action="AddNewToDo">Add new Todo</a>
+</div>
+<div>
+<a asp-action="SeeCompletedToDos">See Completed ToDos</a>
+</div>
+<br/>
+    @if (Model == null)
+    {
+        <div>
+            <strong>There are no to do items to show.</strong>
+        </div>
+    }
+    else
+    {
+        foreach (var item in Model)
+         {
+             <div>
+                 <h1>
+                     @item.Text
+                 </h1>
+                 <h2>
+                     @item.DateCreated
+                 </h2>
+                 <a asp-action="MarkAsCompleted"> Mark As Completed</a>
+             </div>
+         }
+    }
+</body>
+</html>

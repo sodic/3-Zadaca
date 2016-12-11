@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Zadatak_1
 {
-    class ToDoSqlRepository : IToDoRepository
+    public class ToDoSqlRepository : IToDoRepository
     {
         private readonly ToDoDbContext _context;
 

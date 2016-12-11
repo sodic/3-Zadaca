@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Zadatak_1;
+using Zadatak_1.Tests;
 using Zadatak_2.Data;
 using Zadatak_2.Models;
 using Zadatak_2.Services;
@@ -52,6 +54,8 @@ namespace Zadatak_2
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<IToDoRepository, ToDoSqlRepository>();
+            services.AddScoped <ToDoDbContext>((x) => new ToDoDbContext(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,7 +85,7 @@ namespace Zadatak_2
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=ToDo}/{action=Index}/{id?}");
             });
         }
     }
