@@ -8,16 +8,14 @@
 <body>
 <h1>Active ToDo</h1>
 <div>
-    <a asp-action="AddNewToDo">Add new Todo</a>
-</div>
-<div>
-<a asp-action="SeeCompletedToDos">See Completed ToDos</a>
+    <a class="btn-bracketed" asp-action="AddNewToDo">Add new Todo</a>
+<a class="btn-bracketed" asp-action="SeeCompletedToDos">See Completed ToDos</a>
 </div>
 <br/>
     @if (Model == null)
     {
         <div>
-            <strong>There are no to do items to show.</strong>
+            <strong>There are no ToDo items to show.</strong>
         </div>
     }
     else

@@ -57,6 +57,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="ToDoAccesDeniedException.cs" />
     <Compile Include="ToDoDbContext.cs" />
+    <Compile Include="ToDoItemForm.cs" />
     <Compile Include="ToDoSqlRepositoryTests.cs" />
     <Compile Include="ToDoSqlRepository.cs" />
     <Compile Include="ToDoItem.cs" />

@@ -1,0 +1,16 @@
+﻿@model Zadatak_1.ToDoItemForm
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Add ToDo item</title>
+</head>
+<body>
+    <div>
+        <form asp-action="Add" method="post">
+            State the item to do: <input asp-for="Text" /> <span asp-validation-for="Text"></span> <br />
+            <input type="submit" />
+        </form>
+    </div>
+</body>
+</html>

@@ -30,17 +30,16 @@ namespace Zadatak_2.Controllers
             return View(items);
         }
 
-        //public async Task<IActionResult> add(String text)
-        //{
-        //    ApplicationUser user = await _users.GetUserAsync(HttpContext.User);
-        //    var item = new ToDoItem(text, Guid.Parse(user.Id));
-        //}
-        public async Task<IActionResult> AddNewToDo(string text)
+        public async Task<IActionResult> Add(ToDoItemForm text)
         {
             ApplicationUser user = await _users.GetUserAsync(HttpContext.User);
-            var item=new ToDoItem(text,Guid.Parse(user.Id));
+            var item = new ToDoItem(text.Text, Guid.Parse(user.Id));
             _repository.Add(item);
             return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> AddNewToDo()
+        {
+            return View();
         }
 
         public IActionResult SeeCompletedToDos()
