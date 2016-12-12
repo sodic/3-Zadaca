@@ -32,14 +32,11 @@ namespace Zadatak_2.Controllers
         [Authorize]
         public async Task<IActionResult> Add(AddTodoViewModel item)
         {
-            if (ModelState.IsValid)
-            {
-                ApplicationUser currentUser = await _users.GetUserAsync(HttpContext.User);
-                ToDoItem todoItem = new ToDoItem(item.Text, Guid.Parse(currentUser.Id));
-                _repository.Add(todoItem);
-                return RedirectToAction("IndexToDo");
-            }
-            return View(item);
+            if (!ModelState.IsValid) return View(item);
+            ApplicationUser currentUser = await _users.GetUserAsync(HttpContext.User);
+            ToDoItem todoItem = new ToDoItem(item.Text, Guid.Parse(currentUser.Id));
+            _repository.Add(todoItem);
+            return RedirectToAction("IndexToDo");
         }
         [Authorize]
         public async Task<IActionResult> Completed()
