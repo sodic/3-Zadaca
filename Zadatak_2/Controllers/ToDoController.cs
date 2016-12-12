@@ -29,27 +29,31 @@ namespace Zadatak_2.Controllers
             var items = _repository.GetActive(Guid.Parse(user.Id));
             return View(items);
         }
-
-        public async Task<IActionResult> Add(ToDoItemForm text)
+        [Authorize]
+        public async Task<IActionResult> Add(AddTodoViewModel item)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser currentUser = await _users.GetUserAsync(HttpContext.User);
+                ToDoItem todoItem = new ToDoItem(item.Text, Guid.Parse(currentUser.Id));
+                _repository.Add(todoItem);
+                return RedirectToAction("Index");
+            }
+            return View(item);
+        }
+        [Authorize]
+        public async Task<IActionResult> Completed()
         {
             ApplicationUser user = await _users.GetUserAsync(HttpContext.User);
-            var item = new ToDoItem(text.Text, Guid.Parse(user.Id));
-            _repository.Add(item);
+            var items = _repository.GetCompleted(Guid.Parse(user.Id));
+            return View(items);
+        }
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> MarkAsCompleted(Guid id)
+        {
+            _repository.MarkAsCompleted(id, Guid.Parse((await _users.GetUserAsync(HttpContext.User)).Id));
             return RedirectToAction("Index");
-        }
-        public async Task<IActionResult> AddNewToDo()
-        {
-            return View();
-        }
-
-        public IActionResult SeeCompletedToDos()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IActionResult MarkAsCompleted()
-        {
-            throw new NotImplementedException();
         }
     }
 }

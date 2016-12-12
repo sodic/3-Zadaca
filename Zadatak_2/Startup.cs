@@ -55,7 +55,7 @@ namespace Zadatak_2
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<IToDoRepository, ToDoSqlRepository>();
-            services.AddScoped <ToDoDbContext>((x) => new ToDoDbContext(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<ToDoDbContext>((s) => new ToDoDbContext(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,38 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>The completed items page</title>
+</head>
+<body>
+    <h1>Completed Items</h1>
+    <div>
+        <a class="btn-bracketed" asp-action="Index">Show active items</a>
+    </div>
+    <br />
+    @if (Model == null)
+    {
+    <div>
+        <strong>All items are currently active.</strong>
+    </div>
+    }
+    else
+    {
+    foreach (var item in Model)
+    {
+    <div class="bg-info">
+        <h1>
+            @item.Text
+        </h1>
+        <h3>
+            Created on: @item.DateCreated
+        </h3>
+        <h3>
+            Completed on: @item.DateCompleted
+        </h3>
+    </div>
+    }
+    }
+</body>
+</html>

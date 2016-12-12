@@ -1389,6 +1389,7 @@ a.bg-success:focus {
 }
 .bg-info {
   background-color: #d9edf7;
+	border-radius:5px;
 }
 a.bg-info:hover,
 a.bg-info:focus {

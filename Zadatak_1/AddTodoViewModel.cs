@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Zadatak_1
 {
-    public class ToDoItemForm
+    public class AddTodoViewModel
     {
-        [Required, MinLength(3)] public string Text;
+        [Required]
+        [MinLength(3)]
+        public string Text { get; set; }
     }
 }
