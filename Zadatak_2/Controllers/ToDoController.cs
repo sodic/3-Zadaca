@@ -12,18 +12,18 @@ namespace Zadatak_2.Controllers
 {
     public class ToDoController : Controller
     {
-        
+
         private readonly IToDoRepository _repository;
         private readonly UserManager<ApplicationUser> _users;
 
-        public ToDoController(IToDoRepository repository,UserManager<ApplicationUser> users)
+        public ToDoController(IToDoRepository repository, UserManager<ApplicationUser> users)
         {
             _repository = repository;
             _users = users;
         }
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> IndexToDo()
         {
             ApplicationUser user = await _users.GetUserAsync(HttpContext.User);
             var items = _repository.GetActive(Guid.Parse(user.Id));
@@ -37,7 +37,7 @@ namespace Zadatak_2.Controllers
                 ApplicationUser currentUser = await _users.GetUserAsync(HttpContext.User);
                 ToDoItem todoItem = new ToDoItem(item.Text, Guid.Parse(currentUser.Id));
                 _repository.Add(todoItem);
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexToDo");
             }
             return View(item);
         }
@@ -52,8 +52,10 @@ namespace Zadatak_2.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> MarkAsCompleted(Guid id)
         {
+            if (!ModelState.IsValid)
+                return RedirectToAction("IndexToDo");
             _repository.MarkAsCompleted(id, Guid.Parse((await _users.GetUserAsync(HttpContext.User)).Id));
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexToDo");
         }
     }
 }

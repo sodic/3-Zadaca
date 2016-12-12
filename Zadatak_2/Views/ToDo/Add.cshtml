@@ -7,8 +7,18 @@
 </head>
 <body>
     <div>
+        <h1>
+            Add new item to do
+        </h1>
+    </div>
+<div>
+    <a class="btn-bracketed" asp-action="IndexToDo">Show active items</a>
+        
+</div>
+    <br />
+    <div>
         <form asp-action="Add" method="post">
-            State the item to do: <input asp-for="Text" /> <span asp-validation-for="Text"></span> <br />
+            Enter text: <input asp-for="Text" /> <span asp-validation-for="Text"></span> <br />
             <input type="submit" />
         </form>
     </div>
