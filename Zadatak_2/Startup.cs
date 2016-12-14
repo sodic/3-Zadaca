@@ -85,7 +85,7 @@ namespace Zadatak_2
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=ToDo}/{action=IndexToDo}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
